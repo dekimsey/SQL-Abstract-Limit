@@ -4,13 +4,15 @@ Portability layer for LIMIT emulation.
 
 CHANGES
 
+0.02_2 15th Nov 2004
+    - really put the underscore in the version
 
-0.02_1
+0.02_1 15th Nov 2004
     - added DB2 support
     - fixed bug in Build.PL
     - added developer release flag (the underscore) to version string
 
-0.01 4th Noc 2004
+0.01 4th Nov 2004
     - initial release
 
 INSTALLATION

@@ -55,7 +55,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut
 
-$VERSION = 0.02_1;
+$VERSION = 0.02_2;
 
 =head1 VERSION
 

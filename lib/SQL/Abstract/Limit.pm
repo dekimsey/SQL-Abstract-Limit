@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Carp;
 
-use DBI::Const::GetInfoType;
+use DBI::Const::GetInfoType ();
 
 use base 'SQL::Abstract';
 
@@ -13,11 +13,11 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut
 
-our $VERSION = '0.031';
+our $VERSION = '0.032';
 
 =head1 VERSION
 
-0.031
+0.032
 
 =cut
 
@@ -79,14 +79,14 @@ our %SyntaxMap = (  mssql    => 'Top',
     my $sql = SQL::Abstract::Limit->new( limit_dialect => $obj );
 
     # generate SQL:
-    my( $stmt, @bind ) = $sql->select( $table, \@fields, \%where, \@order, $limit, $offset );
+    my ( $stmt, @bind ) = $sql->select( $table, \@fields, \%where, \@order, $limit, $offset );
 
     # Then, use these in your DBI statements
-    my $sth = $dbh->prepare($stmt);
-    $sth->execute(@bind);
+    my $sth = $dbh->prepare( $stmt );
+    $sth->execute( @bind );
 
     # Just generate the WHERE clause (only available for some syntaxes)
-    my($stmt, @bind)  = $sql->where(\%where, \@order, $limit, $offset);
+    my ( $stmt, @bind )  = $sql->where( \%where, \@order, $limit, $offset );
 
 =head1 DESCRIPTION
 
@@ -141,7 +141,7 @@ Patches or suggestions welcome.
 
 Other options are described in L<SQL::Abstract|SQL::Abstract>.
 
-=item select( $table, \@fields, [ \%where ], [ \@order, [ $rows, [ $offset ], [ $dialect ] ] ] )
+=item select( $table, \@fields, $where, [ \@order, [ $rows, [ $offset ], [ $dialect ] ] ] )
 
 Same as C<SQL::Abstract::select>, but accepts additional C<$rows>, C<$offset>
 and C<$dialect> parameters.
@@ -151,13 +151,16 @@ The C<$order> parameter is required if C<$rows> is specified.
 The C<$fields> parameter is required, but can be set to C<undef>, C<''> or
 C<'*'> (all these get set to C<'*'>).
 
+The C<$where> parameter is also required. It can be a hashref 
+or an arrayref, or C<undef>.
+
 =cut
 
 sub select {
     my $self   = shift;
     my $table  = SQL::Abstract::_table(shift);
     my $fields = shift;
-    my $where  = shift if ref( $_[0] ) eq 'HASH';
+    my $where  = shift; #  if ref( $_[0] ) eq 'HASH';
 
     my ( $order, $rows, $offset, $syntax ) = $self->_get_args( @_ );
 
@@ -173,7 +176,7 @@ sub select {
     return wantarray ? ( $sql, @bind ) : $sql;
 }
 
-=item where( [ \%where ], [ \@order, [ $rows, [ $offset ], [ $dialect ] ] ] )
+=item where( [ $where, [ \@order, [ $rows, [ $offset ], [ $dialect ] ] ] ] )
 
 Same as C<SQL::Abstract::where>, but accepts additional C<$rows>, C<$offset>
 and C<$dialect> parameters.
@@ -194,13 +197,16 @@ Dies via C<croak> if you try to use it for other syntaxes.
 
 C<$order> is required if C<$rows> is set.
 
-Otherwise, returns a regular C<where> clause.
+C<$where> is required if any other parameters are specified. It can be a hashref 
+or an arrayref, or C<undef>.
+
+Returns a regular C<WHERE> clause if no limits are set.
 
 =cut
 
 sub where {
     my $self   = shift;
-    my $where  = shift if ref( $_[0] ) eq 'HASH';
+    my $where  = shift; # if ref( $_[0] ) eq 'HASH';
 
     my ( $order, $rows, $offset, $syntax ) = $self->_get_args( @_ );
 
@@ -287,11 +293,11 @@ sub _find_syntax {
     }
 
     unless ( ref $syntax )
-    {   # the name of a database, or a syntax dialect
-
+    {   # the name of a database
         return $self->_find_syntax_from_database( $syntax )
             if exists $SyntaxMap{ lc( $syntax ) };
 
+        # or a syntax dialect
         return $syntax;
     }
 
@@ -299,7 +305,7 @@ sub _find_syntax {
 
     # if you get here, you might like to provide a patch to determine the
     # syntax model for your object e.g. by getting at the $dbh stored in it
-    warn "can't determine syntax model for $syntax";
+    warn "can't determine syntax model for $syntax - using default";
 
     return $self->_default_limit_syntax;
 }
@@ -324,8 +330,7 @@ sub _find_database_from_dbh {
         my $name;
 
         # $name = $dbh->func( 17, 'GetInfo' ) if $odbc;
-        # %GetInfoType is exported from DBI::Const::GetInfoType
-        $name = $dbh->get_info( $GetInfoType{SQL_DBMS_NAME} ) if $odbc;;
+        $name = $dbh->get_info( $DBI::Const::GetInfoType::GetInfoType{SQL_DBMS_NAME} ) if $odbc;
         $name = $dbh->{ado_conn}->Properties->Item( 'DBMS Name' )->Value if $ado;
 
         die "can't determine driver name for ODBC or ADO handle: $dbh" unless $name;

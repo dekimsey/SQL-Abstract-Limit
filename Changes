@@ -2,6 +2,16 @@ Revision history for SQL-Abstract-Limit
 
 CHANGES
 
+** => API changes
+
+0.032 15th Jan 2005
+    - ** made the WHERE clause required
+    - stopped checking that the WHERE clause is a hashref - 
+      SQL::Abstract accepts arrayrefs too
+
+0.031 15th Jan 2005
+    - added Makefile.PL to the MANIFEST
+
 0.03 15th Jan 2005
     - removed underscore - this thing seems to work
     - fixed bug in _FetchFirst that was duplicating 'ORDER BY'

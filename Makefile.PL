@@ -5,10 +5,10 @@ WriteMakefile
           'NAME' => 'SQL::Abstract::Limit',
           'VERSION_FROM' => 'lib/SQL/Abstract/Limit.pm',
           'PREREQ_PM' => {
-                           'DBI' => 0,
-                           'SQL::Abstract' => 0,
-                           'Test::Exception' => 0,
-                           'Test::More' => 0
+                           'DBI' => '0',
+                           'SQL::Abstract' => '0',
+                           'Test::Exception' => '0',
+                           'Test::More' => '0'
                          },
           'INSTALLDIRS' => 'site',
           'PL_FILES' => {}

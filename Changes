@@ -4,6 +4,11 @@ CHANGES
 
 ** => API changes
 
+0.033 15th March 2005
+    - fixed bug where the order-by argument was ignored if no 
+        limit arguments (rows, offset) were supplied 
+        (reported by Emmanuel Engelhart)
+
 0.032 15th Jan 2005
     - ** made the WHERE clause required
     - stopped checking that the WHERE clause is a hashref - 

@@ -12,7 +12,7 @@ use Cwd;
 SKIP: {
     eval { require DBD::AnyData; require Class::DBI; };
 
-    skip "need DBD::AnyData and Class::DBI to test syntax auto-detection", 7 if $@;
+    skip( "need DBD::AnyData and Class::DBI to test syntax auto-detection", 7 ) if $@;
 
 =for notes
 

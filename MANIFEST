@@ -1,7 +1,7 @@
 Build.PL
 Changes
 MANIFEST
-META.yml # Will be created by "make dist"
+META.yml
 README
 lib/SQL/Abstract/Limit.pm
 t/00.load.t

@@ -7,7 +7,7 @@ use DBI::Const::GetInfoType;
 
 use base 'SQL::Abstract';
 
-use vars qw( $VERSION %SyntaxMap );
+our ( $VERSION, %SyntaxMap );
 
 # additions / error reports welcome !
 %SyntaxMap = (  mssql    => 'Top',
@@ -55,7 +55,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut
 
-$VERSION = 0.01;
+$VERSION = 0.02_1;
 
 =head1 VERSION
 
@@ -67,6 +67,10 @@ This is an early release that is likely to have errors in the SQL. I'm no SQL
 guru - which is why I'm interested in SQL generation modules. If you can spot
 errors, even better provide patches, even better write tests, for any of the
 SQL in this module, I'll buy you a beer one fine day!
+
+On the other hand, if you use this and it works, drop me a line and let me know.
+If I can get the feeling this is working against a number of different databases,
+I can drop the developer status.
 
 =head1 SYNOPSIS
 
@@ -119,7 +123,7 @@ settings in method calls, this just sets the default. Possible values are:
 
     Top             SQL/Server, MS Access
     RowNum          Oracle
-    FetchFirst      DB2         # not implemented yet
+    FetchFirst      DB2
     First           Informix    # not implemented yet
     GenericSubQ     Sybase, plus any databases not recognised by this module
 
@@ -735,6 +739,53 @@ WHERE r >= $offset
     #    return ($sql, @params);
     #}
 
+=item FetchFirst
+
+=over 8
+
+=item Syntax
+
+    SELECT * FROM (
+        SELECT * FROM (
+            $sql
+            ORDER BY order_cols_up
+            FETCH FIRST $last ROWS ONLY
+        ) foo
+        ORDER BY order_cols_down
+        FETCH FIRST $rows ROWS ONLY
+    ) bar
+    ORDER BY order_cols_up
+
+=item Databases
+
+IBM DB2
+
+=back
+
+=cut
+
+sub _FetchFirst {
+    my ( $self, $sql, $order, $rows, $offset ) = @_;
+
+    my $last = $rows + $offset;
+
+    my ( $order_by_up, $order_by_down ) = $self->_order_directions( $order );
+
+    $sql = <<"";
+SELECT * FROM (
+    SELECT * FROM (
+        $sql
+        ORDER BY $order_by_up
+        FETCH FIRST $last ROWS ONLY
+    ) foo
+    ORDER BY $order_by_down
+    FETCH FIRST $rows ROWS ONLY
+) bar
+ORDER BY $order_by_up
+
+    return $sql;
+}
+
 =item GenericSubQ
 
 When all else fails, this should work for many databases, but it is probably
@@ -873,36 +924,6 @@ across 200th place.
 
 =end notes
 
-=item FetchFirst
-
-=over 8
-
-=item Syntax
-
-    SELECT * FROM table FETCH FIRST 10 ROWS ONLY
-
-for top 10.
-
-This is something I've only vaguely heard about and haven't implemented.
-
-=item Databases
-
-DB2
-
-=back
-
-=cut
-
-# DB2 version 7
-sub _FetchFirst {
-    my ( $self, $sql, $order, $rows, $offset ) = @_;
-    die 'FETCH FIRST not implemented';
-
-    # might need to add to regex in 'where' method
-
-    # fetch first 20 rows
-}
-
 =item First
 
 =over 8
@@ -1004,6 +1025,12 @@ complications, you will probably need to look elsewhere.
 
 But if your tables aren't too huge, and your queries straightforward, you can
 just plug this module in and move on to your next task.
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Aaron Johnson for the Top syntax model (SQL/Server and MS Access).
+
+Thanks to Emanuele Zeppieri for the IBM DB2 syntax model.
 
 =head1 TODO
 

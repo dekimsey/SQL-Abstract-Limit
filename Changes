@@ -1,3 +1,21 @@
 Revision history for SQL-Abstract-Limit
 
-See README file.
+CHANGES
+
+0.03 15th Jan 2005
+    - removed underscore - this thing seems to work
+    - fixed bug in _FetchFirst that was duplicating 'ORDER BY'
+      (reported by Emanuele Zeppieri)
+    - added a Makefile.PL option to Build.PL
+
+0.02_2 15th Nov 2004
+    - really put the underscore in the version
+
+0.02_1 15th Nov 2004
+    - added DB2 support
+    - fixed bug in Build.PL
+    - added developer release flag (the underscore) to version string
+
+0.01 4th Nov 2004
+    - initial release
+

@@ -55,7 +55,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut
 
-$VERSION = 0.02_2;
+$VERSION = '0.03';
 
 =head1 VERSION
 
@@ -775,13 +775,13 @@ sub _FetchFirst {
 SELECT * FROM (
     SELECT * FROM (
         $sql
-        ORDER BY $order_by_up
+        $order_by_up
         FETCH FIRST $last ROWS ONLY
     ) foo
-    ORDER BY $order_by_down
+    $order_by_down
     FETCH FIRST $rows ROWS ONLY
 ) bar
-ORDER BY $order_by_up
+$order_by_up
 
     return $sql;
 }

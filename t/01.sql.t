@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 19;
+use Test::More tests => 22;
 use Test::Exception;
 
 =for notes
@@ -22,9 +22,9 @@ use Test::Exception;
 
 use SQL::Abstract::Limit;
 
-my @syntaxes = qw( LimitOffset LimitXY RowsTo Top RowNum GenericSubQ shgfh );
+my @syntaxes = qw( LimitOffset LimitXY RowsTo Top RowNum GenericSubQ FetchFirst shgfh );
 
-my @not_syntaxes = qw( Fetch Rank );
+my @not_syntaxes = qw( Rank );
 
 lives_ok { SQL::Abstract::Limit->new( limit => $_ ) for @syntaxes } 'survives constructor';
 
@@ -94,6 +94,18 @@ TODO: {
     local $TODO = 'need regex for complex query';
     like( $stmt, qr~^\Qcomplete SQL\E$~, 'complete SQL' );
 }
+
+# FetchFirst
+lives_ok { ( $stmt, @bind ) = $sql_ab->select( $table, $fields, $where, $order, $limit, $offset, 'FetchFirst' ) } 'select GenericSubQ';
+like( $stmt, qr~\Q$base_sql\E~, 'base SQL' );
+
+TODO: {
+    local $TODO = 'need regex for complex query';
+    like( $stmt, qr~^\Qcomplete SQL\E$~, 'complete SQL' );
+}
+
+
+
 
 #warn "\n\n" . $stmt;
 #warn join( ', ', @bind ) . "\n\n";

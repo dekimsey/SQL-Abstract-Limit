@@ -1,0 +1,13 @@
+Build.PL
+Changes
+MANIFEST
+META.yml # Will be created by "make dist"
+README
+lib/SQL/Abstract/Limit.pm
+t/00.load.t
+t/01.sql.t
+t/02.syntax.t
+t/03.subclass.t
+t/test_data.csv
+t/pod-coverage.t
+t/pod.t

@@ -7,10 +7,22 @@ use DBI::Const::GetInfoType;
 
 use base 'SQL::Abstract';
 
-our ( $VERSION, %SyntaxMap );
+=head1 NAME
+
+SQL::Abstract::Limit - portable LIMIT emulation
+
+=cut
+
+our $VERSION = '0.031';
+
+=head1 VERSION
+
+0.031
+
+=cut
 
 # additions / error reports welcome !
-%SyntaxMap = (  mssql    => 'Top',
+our %SyntaxMap = (  mssql    => 'Top',
                 access   => 'Top',
                 sybase   => 'GenericSubQ',
                 oracle   => 'RowNum',
@@ -49,28 +61,6 @@ our ( $VERSION, %SyntaxMap );
                 google   => 'LimitXY',
                 );
 
-=head1 NAME
-
-SQL::Abstract::Limit - portable LIMIT emulation
-
-=cut
-
-$VERSION = '0.03';
-
-=head1 VERSION
-
-0.01
-
-=head1 DEVELOPER RELEASE
-
-This is an early release that is likely to have errors in the SQL. I'm no SQL
-guru - which is why I'm interested in SQL generation modules. If you can spot
-errors, even better provide patches, even better write tests, for any of the
-SQL in this module, I'll buy you a beer one fine day!
-
-On the other hand, if you use this and it works, drop me a line and let me know.
-If I can get the feeling this is working against a number of different databases,
-I can drop the developer status.
 
 =head1 SYNOPSIS
 

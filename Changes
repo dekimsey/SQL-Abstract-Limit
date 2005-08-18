@@ -4,6 +4,11 @@ CHANGES
 
 ** => API changes
 
+0.1   18th August 2005
+    - fixed bug in where() - if an order clasue, but no limit clause, was specified, 
+        then the order clause was dropped - reported by Dan Sully
+    - added 04.args.t to MANIFEST
+
 0.033 15th March 2005
     - fixed bug where the order-by argument was ignored if no 
         limit arguments (rows, offset) were supplied 

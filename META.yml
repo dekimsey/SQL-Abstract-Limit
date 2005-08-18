@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: SQL-Abstract-Limit
-version: 0.033
+version: 0.1
 author:
   - David Baird <cpan@riverside-cms.co.uk>
 abstract: portable LIMIT emulation
@@ -13,5 +13,5 @@ requires:
 provides:
   SQL::Abstract::Limit:
     file: lib/SQL/Abstract/Limit.pm
-    version: 0.033
-generated_by: Module::Build version 0.2608
+    version: 0.1
+generated_by: Module::Build version 0.2609

@@ -9,6 +9,7 @@ t/00.load.t
 t/01.sql.t
 t/02.syntax.t
 t/03.subclass.t
+t/04.args.t
 t/test_data.csv
 t/pod-coverage.t
 t/pod.t

@@ -5,6 +5,8 @@ use Carp;
 
 use DBI::Const::GetInfoType ();
 
+use SQL::Abstract 1.20;
+
 use base 'SQL::Abstract';
 
 =head1 NAME
@@ -13,7 +15,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut
 
-our $VERSION = '0.1';
+our $VERSION = '0.101';
 
 # additions / error reports welcome !
 our %SyntaxMap = (  mssql    => 'Top',
@@ -152,7 +154,7 @@ or an arrayref, or C<undef>.
 
 sub select {
     my $self   = shift;
-    my $table  = SQL::Abstract::_table(shift);
+    my $table  = $self->_table(shift);
     my $fields = shift;
     my $where  = shift; #  if ref( $_[0] ) eq 'HASH';
 

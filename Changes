@@ -4,6 +4,10 @@ CHANGES
 
 ** => API changes
 
+0.101 9th September 2005
+	- changed call to _table to match API modified in SQL::Abstract 1.20
+	- ** requires SQL::Abstract 1.20 or greater
+
 0.1   18th August 2005
     - fixed bug in where() - if an order clasue, but no limit clause, was specified, 
         then the order clause was dropped - reported by Dan Sully

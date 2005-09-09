@@ -6,7 +6,7 @@ WriteMakefile
           'VERSION_FROM' => 'lib/SQL/Abstract/Limit.pm',
           'PREREQ_PM' => {
                            'DBI' => '0',
-                           'SQL::Abstract' => '0',
+                           'SQL::Abstract' => '1.2',
                            'Test::Exception' => '0',
                            'Test::More' => '0'
                          },

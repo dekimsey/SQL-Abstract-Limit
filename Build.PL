@@ -10,7 +10,7 @@ my $builder = Module::Build->new(
     requires => { 'Test::More' => 0,
                   'Test::Exception' => 0,
                   'DBI' => 0, # for DBI::Const::GetInfoType
-                  'SQL::Abstract' => 0,
+                  'SQL::Abstract' => 1.2,
                   },
 	create_makefile_pl  => 'traditional',
     add_to_cleanup      => [ 'SQL-Abstract-Limit-*' ],

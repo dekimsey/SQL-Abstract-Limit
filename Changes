@@ -2,7 +2,13 @@ Revision history for SQL-Abstract-Limit
 
 CHANGES
 
-** => API changes
+** indicates API changes
+
+0.11  11th October 2005, 12:40
+    - re-arranged order of tests in _find_syntax() to avoid the eval 
+        where possible - if the calling app has overridden die(), the 
+        eval may give spurious results - reported by support@2rad.net
+        (rt bug #15000)
 
 0.101 9th September 2005
 	- changed call to _table to match API modified in SQL::Abstract 1.20

@@ -13,9 +13,9 @@ use base 'SQL::Abstract';
 
 SQL::Abstract::Limit - portable LIMIT emulation
 
-=cut
+=cut    
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 # additions / error reports welcome !
 our %SyntaxMap = (  mssql    => 'Top',
@@ -284,7 +284,7 @@ sub _find_syntax
 {
     my ($self, $syntax) = @_;
     
-    # $syntax is a dialect name, $dbh, or CDBI class or object
+    # $syntax is a dialect name, database name, $dbh, or CDBI class or object
 
     Carp::croak('no syntax') unless $syntax;
     

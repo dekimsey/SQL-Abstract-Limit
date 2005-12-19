@@ -45,8 +45,8 @@ my $cwd = getcwd;
 
 {
     package TestApp;
-    use base 'Class::DBI';
-
+    #use base 'Class::DBI'; # don't attempt to load if not installed
+    our @ISA = ('Class::DBI');
     my $dsn = 'dbi:AnyData(RaiseError=>1):';
 
     __PACKAGE__->set_db( 'Main', $dsn, '', '' );

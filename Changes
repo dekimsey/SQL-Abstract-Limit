@@ -4,8 +4,12 @@ CHANGES
 
 ** indicates API changes
 
+0.13 21st December 2008, 23:20
+    - updated test suite to play with the latest release of SQL::Abstract. 
+        Patches supplied by the SQL::Abstract dev team.
+
 0.12  19th December 2005, 23:20
-    - removed hidden dependency on Class::DBI ?the test suite.
+    - removed hidden dependency on Class::DBI in the test suite.
 
 0.11  11th October 2005, 12:40
     - re-arranged order of tests in _find_syntax() to avoid the eval 

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More tests => 17;
 use Test::Exception;
 
 use lib qw(t/lib);
@@ -136,3 +136,14 @@ is_same_sql_bind(
  .  ") bar ORDER BY pay ASC, age ASC", \@expected_bind,
   'FetchFirst SQL',
 );
+
+# Skip
+lives_ok { ( $stmt, @bind ) = $sql_ab->select( $table, $fields, $where, $order, $limit, $offset, 'Skip' ) } 'select Skip';
+
+is_same_sql_bind(
+  $stmt, \@bind,
+  "select skip $offset limit $limit $base_sql ORDER BY pay, age", \@expected_bind,
+  'Skip SQL',
+);
+
+

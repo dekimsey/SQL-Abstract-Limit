@@ -4,6 +4,9 @@ CHANGES
 
 ** indicates API changes
 
+0.141 22nd December 2008, 22:13
+    - fixed pod syntax
+
 0.14 22nd December 2008, 14:48
     - added support for Informix, provided by Paul Falbe.
 

@@ -15,7 +15,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut    
 
-our $VERSION = '0.14';
+our $VERSION = '0.141';
 
 # additions / error reports welcome !
 our %SyntaxMap = (  mssql    => 'Top',
@@ -954,7 +954,7 @@ across 200th place.
 =end notes
 
 
-=notes
+=begin notes
 
 =item First
 

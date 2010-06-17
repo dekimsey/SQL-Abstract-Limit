@@ -154,7 +154,7 @@ or an arrayref, or C<undef>.
 
 sub select {
     my $self   = shift;
-    my $table  = $self->_table(shift);
+    my $table  = shift;
     my $fields = shift;
     my $where  = shift; #  if ref( $_[0] ) eq 'HASH';
 

@@ -15,7 +15,7 @@ SQL::Abstract::Limit - portable LIMIT emulation
 
 =cut    
 
-our $VERSION = '0.141';
+our $VERSION = '0.141_1';
 
 # additions / error reports welcome !
 our %SyntaxMap = (  mssql    => 'Top',

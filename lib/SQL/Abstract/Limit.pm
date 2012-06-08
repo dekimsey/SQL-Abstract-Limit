@@ -162,9 +162,8 @@ sub select {
     
     $fields ||= '*';    # in case someone supplies '' or undef
 
-    # with no LIMIT parameters, defer to SQL::Abstract [ don't know why the first way fails ]
-    # return $self->SUPER::select( $table, $fields, $where, $order ) unless $rows;
-    return SQL::Abstract->new->select( $table, $fields, $where, $order ) unless $rows;
+    # with no LIMIT parameters, defer to SQL::Abstract
+    return $self->SUPER::select( $table, $fields, $where, $order ) unless $rows;
     
     # with LIMIT parameters, get the basic SQL without the ORDER BY clause
     my ( $sql, @bind ) = $self->SUPER::select( $table, $fields, $where );
